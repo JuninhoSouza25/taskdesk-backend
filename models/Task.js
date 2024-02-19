@@ -15,8 +15,8 @@ const taskSchema = new Schema({
     type: Date,
     required: true
   },
-  expiry: {
-    type: Date,
+  status: {
+    type: String,
     required: true
   }
 }, {timestamps: true});

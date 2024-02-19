@@ -8,7 +8,7 @@ const taskController = {
         title: req.body.title, 
         description: req.body.description,
         expiry: req.body.expiry,
-        status: "A FAZER"
+        status: req.body.status
       }
 
       const response = await taskModel.create(task);
