@@ -14,6 +14,7 @@ const taskController = {
       const response = await taskModel.create(task);
 
       res.status(201).json({ response, msg:"Tarefa criada com sucesso!"})
+      console.log({ response, msg:"Tarefa criada com sucesso!"})
 
     } catch (error) {
       console.log("Erro ao criar tarefa: ", error)
