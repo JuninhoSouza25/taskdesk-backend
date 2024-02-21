@@ -12,6 +12,14 @@ const userRouter = require("./users")
 
 router.use("/", userRouter)
 
+// Login Routes
+
+const loginRouter = require("./login")
+
+router.use("/", loginRouter)
+
 module.exports = router;
+
+
 
 
