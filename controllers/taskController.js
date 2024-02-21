@@ -88,7 +88,7 @@ const taskController = {
     }
 
     res.status(200).json({ task, msg:"Tarefa atualizada com sucesso!"})
-
+    console.log({ task, msg:"Tarefa atualizada com sucesso!"})
   }
 
 }
