@@ -7,6 +7,7 @@ const taskController = {
       const task = {
         title: req.body.title, 
         description: req.body.description,
+        user_id: req.body.user_id,
         expiry: req.body.expiry,
         status: req.body.status
       }
@@ -25,6 +26,25 @@ const taskController = {
     try {
 
       const task = await taskModel.find();
+
+      res.json(task)
+      
+    } catch (error) {
+      console.log(error)
+    }
+
+  },
+  getTasks: async (req, res) => {
+
+    try {
+
+      const id = req.params.user_id
+      const task = await taskModel.find({ user_id: id });
+
+      if(!task) {
+        res.status(404).json({msg: "Tarefas não encontrada!"})
+        return;
+      }
 
       res.json(task)
       
@@ -75,6 +95,7 @@ const taskController = {
     const task = {
         title: req.body.title, 
         description: req.body.description,
+        user_id: req.body.user_id,
         expiry: req.body.expiry,
         status: req.body.status
     }
