@@ -13,6 +13,10 @@ const userController = {
         confirmpassword: req.body.confirmpassword,
         thumbnail: req.body.thumbnail,
       }
+
+      if (!user){
+        return res.status(401).json({msg: "Por favor, preencha o formulário."})
+      }
       
       if (user.password !== user.confirmpassword){
         return res.status(401).json({msg: "As senhas devem ser iguais"})
@@ -21,13 +25,13 @@ const userController = {
       const emailExists = await UserModel.findOne({email: user.email})
 
       if(emailExists) {
-        return res.status(401).json({msg: `Email ${emailExists.email} já cadastrado`})
+        return res.status(401).json({msg: `Email "${emailExists.email}" já cadastrado`})
       }
 
       const usernameExists = await UserModel.findOne({username: user.username})
 
       if(usernameExists) {
-        return res.status(401).json({msg: `Username ${usernameExists.username} já cadastrado`})
+        return res.status(401).json({msg: `Username "${usernameExists.username}" já cadastrado`})
       }
 
       // Create password
