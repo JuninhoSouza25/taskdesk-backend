@@ -17,9 +17,24 @@ const userController = {
       if (!user){
         return res.status(401).json({msg: "Por favor, preencha o formulário."})
       }
+
+      if (user.password.length < 8){
+        return res.status(401).json({msg: "A senha deve ter pelo menos 8 caracteres"})
+      }
       
       if (user.password !== user.confirmpassword){
         return res.status(401).json({msg: "As senhas devem ser iguais"})
+      }
+
+      function validateEmail(email) {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+      }
+
+      const validEmail = validateEmail(user.email)
+
+      if(!validEmail){
+        return res.status(401).json({msg: "Entre com um email válido"})
       }
 
       const emailExists = await UserModel.findOne({email: user.email})
