@@ -133,6 +133,11 @@ const userController = {
     
     const updatedUser = await UserModel.findByIdAndUpdate(id, user);
 
+    if(updatedUser.email !== user.email){
+      res.status(404).json({msg: "O email não pode ser alterado!"})
+      return;
+    }
+
     if(!updatedUser) {
       res.status(404).json({msg: "User não encontrado!"})
       return;
