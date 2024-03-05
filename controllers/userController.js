@@ -137,6 +137,40 @@ const userController = {
 
     res.status(200).json({user, msg:"User atualizado com sucesso!"})
 
+  },
+  updatePassword: async(req, res) => {
+    
+    const id = req.params.id
+
+    const user = {
+      password: req.body.password,
+      confirmpassword: req.body.confirmpassword,
+    }
+
+    if (user.password.length < 8){
+      return res.status(401).json({msg: "A senha deve ter pelo menos 8 caracteres"})
+    }
+    
+    if (user.password !== user.confirmpassword){
+      return res.status(401).json({msg: "As senhas devem ser iguais"})
+    }
+
+    const salt = await bcrypt.genSalt()
+    const passwordHash = await bcrypt.hash(user.password, salt)
+
+    const updatedPassword = {
+      password: passwordHash
+    }
+    
+    const updatedUser = await UserModel.findByIdAndUpdate(id, updatedPassword);
+
+    if(!updatedUser) {
+      res.status(404).json({msg: "User não encontrado!"})
+      return;
+    }
+
+    res.status(200).json({user, msg:"Senha atualizada com sucesso!"})
+
   }
 
 

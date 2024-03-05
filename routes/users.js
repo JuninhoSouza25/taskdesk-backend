@@ -14,6 +14,9 @@ router.route("/user/:id").delete((req, res) => userController.delete(req, res));
 
 router.route("/user/:id").put((req, res) => userController.update(req, res));
 
+router.route("/user/update-password/:id").put((req, res) => userController.updatePassword(req, res));
+
+
 // function checkToken(req, res, next){
 //   const authHeader = req.headers['authorization']
 //   const token = authHeader && authHeader.split(" ")[1]
